@@ -6,7 +6,8 @@ report_dir=datetime.datetime.now().strftime('%Y-%m-%d')
 regions = [ 'ap-northeast-1','ap-southeast-1','ap-southeast-2','eu-central-1','eu-west-1','sa-east-1','us-east-1','us-west-1','us-west-2']
 data = []
 for az in regions:
-        ec2 = boto3.client('ec2',region_name=az)
+        ec2 = boto3.client('ec2',region_name=az) # via pre assumed IAM ROLE on instance OR use aws key secret.
+        #ec2 = boto3.client('ec2',aws_access_key_id = 'access key',aws_secret_access_key = 'secretkey',region_name=az) 
         ids = ec2.describe_instances()
         for instances in ids['Reservations']:
                 running=[]
